@@ -2,7 +2,6 @@ package com.example.birthdayback.service;
 
 import com.example.birthdayback.model.Users;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service

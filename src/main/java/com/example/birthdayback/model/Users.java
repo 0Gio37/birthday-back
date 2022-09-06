@@ -48,7 +48,7 @@ public class Users {
 
     @Override
     public String toString(){
-        return "User : [id =" + id + ", username="+ username + ", password=" + password+"email="+email+"]";
+        return "User : [id =" + id + ", username="+ username + ", password=" + password+" ,email="+email+"]";
     }
 
     public Set<Birthday> getBirthdays() {

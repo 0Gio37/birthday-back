@@ -8,6 +8,8 @@ public interface BirthdayService {
     public List<Birthday> getAllBirthdays();
     public List<Birthday> getBirthdaysByUserId(Long userId);
     public Birthday save(Birthday birthday);
+    public Birthday update(Birthday birthday);
     public void delete(Long id);
     public Birthday getBirthdayById(Long id);
+
 }

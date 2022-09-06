@@ -2,9 +2,10 @@ package com.example.birthdayback.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 public class Birthday {
@@ -13,7 +14,8 @@ public class Birthday {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDate date;
+    //@Temporal(TemporalType.DATE)
+    private Date date;
     private String firstname;
     private String lastname;
     @ManyToOne
@@ -23,11 +25,18 @@ public class Birthday {
     public Birthday(){
         super();
     }
-
-    public Birthday(Long id, LocalDate date, String firstname, String lastname, Users users) {
+    public Birthday(Long id, Date date, String firstname, String lastname, Users users) {
         super();
         this.id = id;
         this.date = date;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.users = users;
+    }
+
+    public Birthday(Long id, String firstname, String lastname, Users users) {
+        super();
+        this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.users = users;
@@ -37,7 +46,7 @@ public class Birthday {
         return id;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
@@ -54,7 +63,7 @@ public class Birthday {
         return users;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

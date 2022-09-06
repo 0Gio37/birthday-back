@@ -37,11 +37,20 @@ public class BirthdayServiceImpl implements BirthdayService{
     }
 
     @Override
-    public Birthday save(Birthday birthday) {
+    public Birthday update(Birthday birthday){
         if (birthdayRepository.findAll().contains(birthday)) {
             return birthdayRepository.save(birthday);
         } else {
             return null;
+        }
+    }
+
+    @Override
+    public Birthday save(Birthday birthday) {
+        if (birthdayRepository.findAll().contains(birthday)) {
+            return null;
+        } else {
+            return birthdayRepository.save(birthday);
         }
     }
 

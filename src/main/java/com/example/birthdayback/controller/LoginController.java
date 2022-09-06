@@ -16,7 +16,6 @@ public class LoginController {
     @Autowired
     private UsersService usersService;
 
-
     @PostMapping(value = {""})
     public ResponseEntity<Users> loginUser(@RequestParam("username") String username,
                                            @RequestParam("password") String password){

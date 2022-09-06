@@ -4,7 +4,6 @@ import com.example.birthdayback.model.Users;
 import com.example.birthdayback.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -52,4 +51,5 @@ public class UsersServiceImpl implements UsersService {
             return null;
         }
     }
+
 }

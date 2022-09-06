@@ -5,12 +5,13 @@ import com.example.birthdayback.model.Users;
 import com.example.birthdayback.service.BirthdayService;
 import com.example.birthdayback.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/users")
@@ -45,12 +46,14 @@ public class UsersController {
 
     @PostMapping(value = {"","/{user-ID}/birthdays"})
     public ResponseEntity<Birthday> createBirthday(@PathVariable("user-ID") Long userId,
-                                                   @RequestParam("date") LocalDate date,
+                                                   @RequestParam("date")
+                                                   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                        Date date,
                                                    @RequestParam("firstname") String firstname,
                                                    @RequestParam("lastname") String lastname){
         Users currentUser = usersService.getUsersById(userId);
         Birthday birthdayToCreate  = new Birthday(null, date, firstname, lastname, currentUser);
-        if(birthdayService.save(birthdayToCreate) == null ){
+        if(birthdayService.save(birthdayToCreate) == null){
             return ResponseEntity.badRequest().build();
         }else{
             return ResponseEntity.ok(birthdayService.save(birthdayToCreate));
@@ -58,25 +61,26 @@ public class UsersController {
     }
 
     @PutMapping(value = {"","/{user-ID}/birthdays"})
-    public Birthday UpdateBirthday(@RequestParam("id") Long birthdayId,
-                                   @RequestParam("date") LocalDate date,
+    public ResponseEntity UpdateBirthday(@RequestParam("id") Long birthdayId,
+                                   @RequestParam("date")
+                                   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                           Date date,
                                    @RequestParam("firstname") String firstname,
                                    @RequestParam("lastname") String lastname ){
         Birthday birthdayToUpdate = birthdayService.getBirthdayById(birthdayId);
         birthdayToUpdate.setDate(date);
         birthdayToUpdate.setFirstname(firstname);
         birthdayToUpdate.setLastname(lastname);
-        return birthdayService.save(birthdayToUpdate);
+        if( birthdayService.update(birthdayToUpdate) == null){
+            return ResponseEntity.badRequest().build();
+        }else{
+            return ResponseEntity.ok(birthdayService.update(birthdayToUpdate));
+        }
     }
 
     @DeleteMapping(value = {"","/{user-ID}/birthdays"})
     public void deleteBirthday(@RequestParam("birthday-ID") Long birthdayId){
         birthdayService.delete(birthdayId);
     }
-
-
-
-
-
 
 }
